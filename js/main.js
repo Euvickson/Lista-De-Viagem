@@ -4,7 +4,7 @@ const itens = JSON.parse(localStorage.getItem("itens")) || [];
 
 itens.forEach( (elemento) => {
     criaElemento(elemento)
-})
+});
 
 form.addEventListener("submit", (evento) => {
     evento.preventDefault();
@@ -32,7 +32,7 @@ form.addEventListener("submit", (evento) => {
     
     nome.value = "";
     quantidade.value = "";
-})
+});
 
 function criaElemento (item) {
 
@@ -46,9 +46,26 @@ function criaElemento (item) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += item.nome;
 
+    novoItem.appendChild(botaoDeleta());
+
     lista.appendChild(novoItem);
-}
+};
 
 function atualizaElemento (item) {
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade;
+};
+
+function botaoDeleta () {
+    const elementoBotao = document.createElement("button");
+    elementoBotao.innerText = "X";
+
+    elementoBotao.addEventListener("click", function() {
+        deletaElemento(this.parentNode);
+    });
+
+    return elementoBotao;
+}
+
+function deletaElemento(tag) {
+    tag.remove()
 }
